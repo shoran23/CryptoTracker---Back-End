@@ -3,7 +3,7 @@ const app = express();
 const PORT = 3005;
 const mongoose = require('mongoose');
 const cors = require('cors');
-// put controller connection here
+const usersController = require('./controllers/users.js');
 
 // mongoose error / disconnection
 mongoose.connection.on('error', err => console.log(err.message + 'is Mongod not running'));
@@ -30,6 +30,9 @@ const corsOptions = {
     }
 }
 app.use(cors());
+
+// Mount the routes from users controller
+app.use('/crypto', usersController)
 
 
 // web server

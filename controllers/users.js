@@ -1,4 +1,4 @@
-const express = required('express');
+const express = require('express');
 const users = express.Router();
 const User = require('../models/user.js');
 
@@ -32,15 +32,14 @@ users.delete('/:id', (req,res) => {
     })
 })
 
-// ADD TO USER FAVORITES LIST
-users.put('/edit/:id', (req,res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedUser) => {
+// UPDATE USER INFO
+users.put('/:id', (req,res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, (err, updatedUser) => {
         if (err) {
             res.status(400).json({error: err.message})
         }
         res.status(200).json(updatedUser)
     })
 })
-
 
 module.exports = users;
