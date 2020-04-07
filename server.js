@@ -2,8 +2,14 @@ const express = require('express');
 const app = express();
 const PORT = 3005;
 const mongoose = require('mongoose');
+const session = require('express-session');
 const cors = require('cors');
+
+
+// controllers
 const usersController = require('./controllers/users.js');
+const sessionsController = require('./controllers/sessions.js');
+
 
 // mongoose error / disconnection
 mongoose.connection.on('error', err => console.log(err.message + 'is Mongod not running'));
@@ -18,24 +24,38 @@ mongoose.connection.once('open', ()=> {
 // middleware
 app.use(express.json());
 
-// cors middleware
-const whitelist = ['http://localhost:3000'];
-const corsOptions = {
+// Secret for authentication/session:
+app.use(
+    session({
+      secret: "feedmeseymour", //some random string
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+
+// CORS middleware:
+const whitelist = [
+    "http://localhost:3000",
+    "http://localhost:3005",
+    "https://fathomless-sierra-68956.herokuapp.com",
+  ];
+  const corsOptions = {
     origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
-}
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  };
 app.use(cors());
 
 // Mount the routes from users controller
 app.use('/crypto', usersController)
+app.use('/sessions', sessionsController)
 
 
 // web server
 app.listen(PORT, () => {
-    console.log('server running on port:',PORT);
+    console.log('server running on port:',PORT); 
 })

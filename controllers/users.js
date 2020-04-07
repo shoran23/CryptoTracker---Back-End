@@ -1,6 +1,6 @@
 const express = require('express');
 const users = express.Router();
-const User = require('../models/user.js');
+const User = require("../models/user.js");
 
 // GET USER
 users.get('/:id', (req,res) => {
