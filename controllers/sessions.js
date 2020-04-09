@@ -6,6 +6,9 @@ const User = require("../models/user.js");
 
 router.post("/", (req, res) => {
   User.findOne({ username: req.body.username }, (err, foundUser) => {
+    console.log(foundUser)
+    console.log(req.body.password, foundUser.password)
+    console.log(bcrypt.compareSync(req.body.password, foundUser.password))
     if (bcrypt.compareSync(req.body.password, foundUser.password)) {
       req.session.currentUser = foundUser;
       let user = { ...foundUser._doc };
@@ -14,6 +17,7 @@ router.post("/", (req, res) => {
     } else {
       res.status(404).json({ error: "Incorrect username or password" });
     }
+    // res.status(201).json(foundUser)
   });
 });
 
