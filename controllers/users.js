@@ -17,14 +17,14 @@ users.post("/", (req, res) => {
 });
 
 // GET USER
-// users.get('/:id', (req,res) => {
-//     User.findById(req.params.id, (err,foundUser) => {
-//         if(err) {
-//             res.status(400).json({error: err.message})
-//         }
-//         res.status(200).json(foundUser)
-//     })
-// })
+users.get('/:id', (req,res) => {
+    User.findById(req.params.id, (err,foundUser) => {
+        if(err) {
+            res.status(400).json({error: err.message})
+        }
+        res.status(200).json(foundUser)
+    })
+})
 
 // // CREATE NEW USER
 // users.post('/', (req,res) => {
@@ -36,24 +36,24 @@ users.post("/", (req, res) => {
 //     })
 // })
 
-// // DELETE USER
-// users.delete('/:id', (req,res) => {
-//     User.findByIdAndRemove(req.params.id, (err, deletedUser) => {
-//         if(err) {
-//             res.status(400).json({error: err.message})
-//         }
-//         res.status(200).json(deletedUser);
-//     })
-// })
+// DELETE USER
+users.delete('/:id', (req,res) => {
+    User.findByIdAndRemove(req.params.id, (err, deletedUser) => {
+        if(err) {
+            res.status(400).json({error: err.message})
+        }
+        res.status(200).json(deletedUser);
+    })
+})
 
-// // UPDATE USER INFO
-// users.put('/:id', (req,res) => {
-//     User.findByIdAndUpdate(req.params.id, req.body, (err, updatedUser) => {
-//         if (err) {
-//             res.status(400).json({error: err.message})
-//         }
-//         res.status(200).json(updatedUser)
-//     })
-// })
+// UPDATE USER INFO
+users.put('/:id', (req,res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, (err, updatedUser) => {
+        if (err) {
+            res.status(400).json({error: err.message})
+        }
+        res.status(200).json(updatedUser)
+    })
+})
 
 module.exports = users;
