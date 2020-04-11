@@ -52,6 +52,13 @@ users.put('/:id', (req,res) => {
         if (err) {
             res.status(400).json({error: err.message})
         }
+
+        updatedUser.username = req.body.username;
+        updatedUser.password = req.body.password;
+        updatedUser.currencyIds = req.body.currencyIds;
+
+        console.log(req.body.currencyIds)
+
         res.status(200).json(updatedUser)
     })
 })
