@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3005;
+const PORT = 3004;
 const mongoose = require('mongoose');
 const session = require('express-session');
 const cors = require('cors');
